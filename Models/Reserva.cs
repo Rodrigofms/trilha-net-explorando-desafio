@@ -15,16 +15,15 @@ namespace DesafioProjetoHospedagem.Models
 
         public void CadastrarHospedes(List<Pessoa> hospedes)
         {
-            // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
-            // *IMPLEMENTE AQUI*
-            if (true)
+            bool verificacao = Suite.Capacidade >= hospedes.Count;
+
+            if (verificacao)
             {
                 Hospedes = hospedes;
             }
             else
             {
-                // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
-                // *IMPLEMENTE AQUI*
+                throw new Exception("Aviso! A quantidade de hóspedes não pode ultrapassar a capacidade da suíte");
             }
         }
 
@@ -35,26 +34,29 @@ namespace DesafioProjetoHospedagem.Models
 
         public int ObterQuantidadeHospedes()
         {
-            // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
-            // *IMPLEMENTE AQUI*
-            return 0;
+            int quantidadeHospedes = Hospedes.Count();
+            return quantidadeHospedes;
         }
 
         public decimal CalcularValorDiaria()
         {
-            // TODO: Retorna o valor da diária
-            // Cálculo: DiasReservados X Suite.ValorDiaria
-            // *IMPLEMENTE AQUI*
             decimal valor = 0;
 
-            // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
-            // *IMPLEMENTE AQUI*
-            if (true)
+            if (DiasReservados >= 10)
             {
-                valor = 0;
-            }
 
-            return valor;
+                valor = DiasReservados * Suite.ValorDiaria;
+                decimal valorComDesconto = 0;
+                valorComDesconto = valor * 0.10M;
+                valor -= valorComDesconto;
+                return valor;
+            }
+            else
+            {
+                valor = DiasReservados * Suite.ValorDiaria;
+                decimal valorComVirgula = Convert.ToDecimal(string.Format("{0:0.00}", valor));
+                return valorComVirgula;
+            }
         }
     }
 }
